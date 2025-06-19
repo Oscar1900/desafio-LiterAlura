@@ -44,7 +44,7 @@ El proyecto sigue una estructura de paquetes organizada para mantener la modular
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone [URL_DE_TU_REPOSITORIO]
+    git clone [https://github.com/Oscar1900/desafio-LiterAlura]
     cd literAlura
     ```
 2.  **Configurar PostgreSQL:**
