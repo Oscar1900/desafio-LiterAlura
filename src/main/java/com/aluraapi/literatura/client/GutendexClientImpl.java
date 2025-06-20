@@ -18,9 +18,10 @@ public class GutendexClientImpl implements GutendexClient {
 
     @Override
     public List<LibroDTO> buscarPorTitulo(String titulo) {
+       String tituloCodificadoParaGutendex = titulo.replace(" ", "+");
 
         String url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
-                .queryParam("search", titulo)
+                .queryParam("search", tituloCodificadoParaGutendex)
                 .toUriString();
         System.out.println("URL de búsqueda por título (Gutendex): " + url);
 
@@ -35,10 +36,12 @@ public class GutendexClientImpl implements GutendexClient {
         }
         return rawResults;
     }
+
     @Override
     public List<LibroDTO> buscarPorAutor(String autor) {
+        String autorCodificadoParaGutendex = autor.replace(" ", "%");
         String url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
-                .queryParam("search", autor)
+                .queryParam("search", autorCodificadoParaGutendex)
                 .toUriString();
         System.out.println("URL de búsqueda por autor (Gutendex): " + url);
 
@@ -64,14 +67,16 @@ public class GutendexClientImpl implements GutendexClient {
         }
         return List.of();
     }
+
     @Override
     public List<LibroDTO> obtenerTop13MasDescargados() {
         String url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .queryParam("sort", "-download_count")
-                .queryParam("page_size", 11)
+                .queryParam("page_size", 13)
                 .toUriString();
         return obtenerResultadosDesde(url);
     }
+
     private List<LibroDTO> obtenerResultadosDesde(String url) {
         try {
             GutendexResponse response = restTemplate.getForObject(url, GutendexResponse.class);
